@@ -561,4 +561,194 @@ public class AcceptanceTest {
         Thread.sleep(1000);
         assertEquals("Turn: 2", webDrivers.get(0).findElement(By.id("turnID")).getText());
     }
+
+    public void rigTestRow51() {
+
+        gd.setTopCard(new Card("C", "3"));
+        setPlayerCards(new String[]{"C2 C7", "H4", "S5", "S6"});
+    }
+    @Test
+    public void testRow51() throws InterruptedException {
+        rigTestRow51();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 play 2C
+        webDrivers.get(0).findElement(By.id("2C")).click();
+        Thread.sleep(1000);
+
+
+        // p2 draw 6C, 9D
+        setPileCards(new String[]{"C6", "D9"});
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("6C")).click();
+        Thread.sleep(1000);
+        assertEquals("Turn: 3", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+    public void rigTestRow52() {
+
+        gd.setTopCard(new Card("C", "3"));
+        setPlayerCards(new String[]{"C2 C7", "H4", "S5", "S6"});
+    }
+    @Test
+    public void testRow52() throws InterruptedException {
+        rigTestRow52();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 play 2C
+        webDrivers.get(0).findElement(By.id("2C")).click();
+        Thread.sleep(1000);
+
+
+        // p2 draw 6S, 9D
+        setPileCards(new String[]{"S6", "D9"});
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+
+        // p2 draw 6C
+        setPileCards(new String[]{"C6"});
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+
+        webDrivers.get(1).findElement(By.id("6C")).click();
+        Thread.sleep(1000);
+        assertEquals("Turn: 3", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+    public void rigTestRow53() {
+
+        setPlayerCards(new String[]{"C2 C7", "H4", "S5", "S6"});
+        gd.setTopCard(new Card("C", "3"));
+        gd.setCards(new ArrayList<>());
+    }
+    @Test
+    public void testRow53() throws InterruptedException {
+        rigTestRow53();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        setPileCards(new String[]{"S6", "D9"});
+        // p1 play 2C
+        webDrivers.get(0).findElement(By.id("2C")).click();
+        Thread.sleep(1000);
+
+
+        // p2 auto draw 6S, 9D
+
+
+        setPileCards(new String[]{"H9", "S7", "H5"});
+        assertTrue(webDrivers.get(1).findElement(By.id("draw")).isEnabled());
+
+
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("draw")).click();
+        Thread.sleep(1000);
+
+        assertFalse(webDrivers.get(1).findElement(By.id("draw")).isEnabled());
+        Thread.sleep(1000);
+        assertEquals("Turn: 3", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+
+    public void rigTestRow55() {
+
+        setPlayerCards(new String[]{"C2 C7", "H4", "D7", "S7"});
+        gd.setTopCard(new Card("C", "3"));
+
+    }
+    @Test
+    public void testRow55() throws InterruptedException {
+        rigTestRow55();
+        setPileCards(new String[]{"D9", "H2"});
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 play 2C
+        webDrivers.get(0).findElement(By.id("2C")).click();
+        Thread.sleep(1000);
+        // p2 auto draw
+
+        setPileCards(new String[]{"S5", "D6", "H6", "C7"});
+
+        // p2 play 2H
+        webDrivers.get(1).findElement(By.id("2H")).click();
+        Thread.sleep(1000);
+
+        // p3 auto draw
+
+        // p3 play 6H
+        webDrivers.get(2).findElement(By.id("6H")).click();
+        Thread.sleep(1000);
+
+        assertEquals("Turn: 4", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+
+    public void rigTestRow56() {
+
+        setPlayerCards(new String[]{"C2 C3", "C4 C6 D9", "D3", "S4"});
+        gd.setTopCard(new Card("H", "2"));
+
+    }
+    @Test
+    public void testRow56() throws InterruptedException {
+        rigTestRow56();
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 play 2C
+        webDrivers.get(0).findElement(By.id("2C")).click();
+        Thread.sleep(1000);
+        // p2 play 4C 6C
+        webDrivers.get(1).findElement(By.id("4C")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("6C")).click();
+        Thread.sleep(1000);
+
+
+        assertTrue(webDrivers.get(2).findElement(By.id("draw")).isEnabled());
+        assertEquals("Turn: 3", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+
+    public void rigTestRow57() {
+
+        setPlayerCards(new String[]{"C2 C3", "C4 S4", "D3", "S4"});
+        gd.setTopCard(new Card("H", "2"));
+
+    }
+    @Test
+    public void testRow57() throws InterruptedException {
+        rigTestRow57();
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 play 2C
+        webDrivers.get(0).findElement(By.id("2C")).click();
+        Thread.sleep(1000);
+        // p2 play 4C 4S
+        webDrivers.get(1).findElement(By.id("4C")).click();
+        Thread.sleep(1000);
+        webDrivers.get(1).findElement(By.id("4S")).click();
+        Thread.sleep(1000);
+
+
+        assertEquals(0, webDrivers.get(0).findElement(By.id("hand")).findElements(By.className("card")).size());
+        assertEquals(0, webDrivers.get(1).findElement(By.id("hand")).findElements(By.className("card")).size());
+        assertEquals(0, webDrivers.get(2).findElement(By.id("hand")).findElements(By.className("card")).size());
+        assertEquals(0, webDrivers.get(3).findElement(By.id("hand")).findElements(By.className("card")).size());
+    }
 }
