@@ -3,6 +3,7 @@ package com.example.comp4004f22a3101077008;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -286,5 +287,95 @@ public class AcceptanceTest {
 
         assertTrue(webDrivers.get(1).findElement(By.id("draw")).isEnabled());
         assertEquals("Turn: 2", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+    public void rigTestRow35() {
+
+        gd.setTopCard(new Card("C", "K"));
+        setPlayerCards(new String[]{"HK HQ", "D4", "C4", "S4"});
+    }
+    @Test
+    public void testRow35() throws InterruptedException {
+        rigTestRow35();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 plays card: KH
+        assertTrue(webDrivers.get(0).findElement(By.id("draw")).isEnabled());
+        webDrivers.get(0).findElement(By.id("KH")).click();
+        Thread.sleep(1000);
+        assertFalse(webDrivers.get(0).findElement(By.id("draw")).isEnabled());
+
+        assertTrue(webDrivers.get(1).findElement(By.id("draw")).isEnabled());
+        assertEquals("Turn: 2", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+    public void rigTestRow36() {
+
+        gd.setTopCard(new Card("C", "K"));
+        setPlayerCards(new String[]{"C7 D7", "D4", "C4", "S4"});
+    }
+    @Test
+    public void testRow36() throws InterruptedException {
+        rigTestRow36();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 plays card: 7C
+        assertTrue(webDrivers.get(0).findElement(By.id("draw")).isEnabled());
+        webDrivers.get(0).findElement(By.id("7C")).click();
+        Thread.sleep(1000);
+        assertFalse(webDrivers.get(0).findElement(By.id("draw")).isEnabled());
+
+        assertTrue(webDrivers.get(1).findElement(By.id("draw")).isEnabled());
+        assertEquals("Turn: 2", webDrivers.get(0).findElement(By.id("turnID")).getText());
+    }
+
+    public void rigTestRow37() {
+
+        gd.setTopCard(new Card("C", "K"));
+        setPlayerCards(new String[]{"H8 D8", "D4", "C4", "S4"});
+    }
+    @Test
+    public void testRow37() throws InterruptedException {
+        rigTestRow37();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 plays card: 8H
+        assertTrue(webDrivers.get(0).findElement(By.id("draw")).isEnabled());
+        webDrivers.get(0).findElement(By.id("8H")).click();
+        Thread.sleep(1000);
+
+        assertEquals("visibility: visible;", webDrivers.get(0).findElement(By.id("spade")).getAttribute("style"));
+        assertEquals("visibility: visible;", webDrivers.get(0).findElement(By.id("heart")).getAttribute("style"));
+        assertEquals("visibility: visible;", webDrivers.get(0).findElement(By.id("club")).getAttribute("style"));
+        assertEquals("visibility: visible;", webDrivers.get(0).findElement(By.id("diamond")).getAttribute("style"));
+    }
+
+
+    public void rigTestRow38() {
+
+        gd.setTopCard(new Card("C", "K"));
+        setPlayerCards(new String[]{"S5 D5", "D4", "C4", "S4"});
+    }
+    @Test
+    public void testRow38() throws InterruptedException {
+        rigTestRow38();
+
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 plays card: 5S
+        assertTrue(webDrivers.get(0).findElement(By.id("draw")).isEnabled());
+        webDrivers.get(0).findElement(By.id("5S")).click();
+        Thread.sleep(1000);
+
+        Alert alert = webDrivers.get(0).switchTo().alert();
+        assertEquals("Invalid Selection", alert.getText());
+        alert.accept();
     }
 }
