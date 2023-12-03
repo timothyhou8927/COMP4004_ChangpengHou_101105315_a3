@@ -1,5 +1,6 @@
 package com.example.comp4004f22a3101077008;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -750,5 +752,43 @@ public class AcceptanceTest {
         assertEquals(0, webDrivers.get(1).findElement(By.id("hand")).findElements(By.className("card")).size());
         assertEquals(0, webDrivers.get(2).findElement(By.id("hand")).findElements(By.className("card")).size());
         assertEquals(0, webDrivers.get(3).findElement(By.id("hand")).findElements(By.className("card")).size());
+    }
+
+    public void rigTestPART2() {
+        setPlayerCards(new String[]{"SA S4", "C4 C6", "H8 HJ H6 HK SK CK", "C8 D8 D2 CQ"});
+        gd.setTopCard(new Card("S", "3"));
+        gd.setCards(new ArrayList<>());
+    }
+    @Test
+    public void testPART2() throws InterruptedException {
+        rigTestPART2();
+        webDrivers.get(0).findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+
+        // p1 4s
+        webDrivers.get(0).findElement(By.id("4S")).click();
+        Thread.sleep(1000);
+
+        // p2 4c
+        webDrivers.get(1).findElement(By.id("4C")).click();
+        Thread.sleep(1000);
+
+        // p3 kc
+        webDrivers.get(2).findElement(By.id("KC")).click();
+        Thread.sleep(1000);
+
+        // p4 AC
+        webDrivers.get(3).findElement(By.id("QC")).click();
+        Thread.sleep(1000);
+
+        // p2 6C
+        webDrivers.get(1).findElement(By.id("6C")).click();
+        Thread.sleep(1000);
+
+        assertEquals("Player 1: 1", webDrivers.get(0).findElement(By.id("p1")).getText());
+        assertEquals("Player 2: 0", webDrivers.get(0).findElement(By.id("p2")).getText());
+        assertEquals("Player 3: 86", webDrivers.get(0).findElement(By.id("p3")).getText());
+        assertEquals("Player 4: 102", webDrivers.get(0).findElement(By.id("p4")).getText());
+
     }
 }
