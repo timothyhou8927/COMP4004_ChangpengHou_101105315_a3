@@ -23,7 +23,7 @@ import java.util.TreeMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DirtiesContext
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(classes = Application.class)
 public class AcceptanceTest {
@@ -790,5 +790,151 @@ public class AcceptanceTest {
         assertEquals("Player 3: 86", webDrivers.get(0).findElement(By.id("p3")).getText());
         assertEquals("Player 4: 102", webDrivers.get(0).findElement(By.id("p4")).getText());
 
+    }
+
+    public void rigTestPART3() {
+        // Player1 starts with {4H, 7S, 5D, 6D, 9D}
+        // Player2 starts with {4S, 6S, KC, 8H, 10D}
+        // Player3 starts with {9S, 6C, 9C, JD, 3H}
+        // Player4 starts with {7D, JH, QH, KH, 5C}
+        setPlayerCards(new String[]{"H4 S7 D5 D6 D9", "S4 S6 CK H8 DT", "S9 C6 C9 DJ H3", "D7 HJ HQ HK C5"});
+        gd.setTopCard(new Card("D", "4"));
+        gd.setCards(new ArrayList<>());
+    }
+    @Test
+    public void testPART3() throws InterruptedException {
+        rigTestPART3();
+
+        WebDriver p1 = webDrivers.get(0);
+        WebDriver p2 = webDrivers.get(1);
+        WebDriver p3 = webDrivers.get(2);
+        WebDriver p4 = webDrivers.get(3);
+
+        // Player1 plays 4H
+        p1.findElement(By.id("4H")).click();
+        Thread.sleep(800);
+        // Player2 plays 4S
+        p2.findElement(By.id("4S")).click();
+        Thread.sleep(800);
+
+        // Player3 plays 9S
+
+        // Player4 can't play and must draw; draws 2C
+
+        // Player4 still cannot play and draws 3C
+
+        // Player4 still cannot play and draws 4C: turn ends
+
+        // Player1 plays 7S
+
+        // Player2 plays 6S
+
+        // Player3 plays 6C
+
+        // Player4 plays 2C forcing player1 to draw 2 cards since player1 cannot immediately play 2 cards
+
+        // Player1 draws 10C and JC
+
+        // Player1 plays JC
+
+        // Player2 plays KC
+
+        // Player3 plays 9C
+
+        // Player4 plays 3C
+
+        // Player1 chooses to draw, gets 7C
+
+        // Player1 plays 7C
+
+        // Player2 plays 8H and declares D as next suit
+
+        // Player3 plays JD
+
+        // Player4 plays 7D
+
+        // Player1 plays 9D
+
+        // Player2 plays 10D and empties hand
+
+        // Player1's hand is {5D, 6D, 10C} and scores 21
+
+        // Player2's hand is empty and scores 0
+
+        // Player3's hand is {3H} and scores 3
+
+        // Player4's hand is {JH, QH, KH, 5C, 4C} and scores 39
+
+        // next round starts: player 2 starts as it was the second player to join the game
+
+        // top card is 10D
+
+        // player1's hand is {7D, 4S, 7C, 4H, 5D}
+
+        // player2's hand is {9D, 3S, 9C, 3H, JC}
+
+        // player3's hand is {3D, 9S, 3C, 9H, 5H}
+
+        // player4's hand is {4D, 7S, 4C, 5S, 8D}
+
+        // Player2 plays 9D
+
+        // Player3 plays 3D
+
+        // Player4 plays 4D
+
+        // Player1 plays 4S
+
+        // Player2 plays 3S
+
+        // Player3 plays 9S
+
+        // Player4 plays 7S
+
+        // Player1 plays 7C
+
+        // Player2 plays 9C
+
+        // Player3 plays 3C
+
+        // Player4 plays 4C
+
+        // Player1 plays 4H
+
+        // Player2 plays 3H
+
+        // Player3 plays 9H
+
+        // Player4 chooses to draw and draws KS, which can't be played    (ok player4 is dumb but we just want to end the game)
+
+        // Player4 cannot play drawn card and must draw: draws QS
+
+        // Player4 still can't play last drawn card and must draw again: draws KH
+
+        // Player4 plays KH
+
+        // Player1 can't play and draws 6D
+
+        // Player1 can't play and draws QD
+
+        // Player1 can't play and draws JD; still can't play; turn ends
+
+        // Player2 can't play and draws 6S
+
+        // Player2 can't play and draws JS
+
+        // Player2 can't play and draws 10S; still can't play; turn ends
+
+        // Player3 plays 5H and empties hand
+
+        // Player1's hand is {5D, 6D, 7D, JD, QD} and scores 38 this round for a total of 59
+
+        // Player2's hand is {JC, 6S, 10S, JS} and scores 36 this round for a total of 36
+
+        // Player3's hand is empty and has a final score of 3
+
+        // Player4's hand is {5S, 8D, KS, QS} and scores 75 this round for a total of 114, which ends the game since it is over 100
+
+        // Player3 wins the game
     }
 }
