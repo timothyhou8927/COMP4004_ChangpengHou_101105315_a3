@@ -810,6 +810,9 @@ public class AcceptanceTest {
         WebDriver p3 = webDrivers.get(2);
         WebDriver p4 = webDrivers.get(3);
 
+        // START
+        p1.findElement(By.id("startBtn")).click();
+        Thread.sleep(800);
         // Player1 plays 4H
         p1.findElement(By.id("4H")).click();
         Thread.sleep(800);
@@ -818,56 +821,127 @@ public class AcceptanceTest {
         Thread.sleep(800);
 
         // Player3 plays 9S
+        p3.findElement(By.id("9S")).click();
+        Thread.sleep(800);
 
         // Player4 can't play and must draw; draws 2C
+        setPileCards(new String[]{"C2"});
+        Thread.sleep(200);
+        p4.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player4 still cannot play and draws 3C
+        setPileCards(new String[]{"C3"});
+        Thread.sleep(200);
+        p4.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player4 still cannot play and draws 4C: turn ends
+        setPileCards(new String[]{"C4"});
+        Thread.sleep(200);
+        p4.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player1 plays 7S
+        p1.findElement(By.id("7S")).click();
+        Thread.sleep(800);
 
         // Player2 plays 6S
+        p2.findElement(By.id("6S")).click();
+        Thread.sleep(800);
 
         // Player3 plays 6C
+        p3.findElement(By.id("6C")).click();
+        Thread.sleep(800);
 
         // Player4 plays 2C forcing player1 to draw 2 cards since player1 cannot immediately play 2 cards
+        setPileCards(new String[]{"CT", "CJ"});
+        Thread.sleep(800);
+        p4.findElement(By.id("2C")).click();
+        Thread.sleep(800);
 
         // Player1 draws 10C and JC
 
         // Player1 plays JC
+        p1.findElement(By.id("JC")).click();
+        Thread.sleep(800);
 
         // Player2 plays KC
+        p2.findElement(By.id("KC")).click();
+        Thread.sleep(800);
 
         // Player3 plays 9C
+        p3.findElement(By.id("9C")).click();
+        Thread.sleep(800);
 
         // Player4 plays 3C
+        p4.findElement(By.id("3C")).click();
+        Thread.sleep(800);
 
         // Player1 chooses to draw, gets 7C
+        setPileCards(new String[]{"C7"});
+        Thread.sleep(200);
+        p1.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player1 plays 7C
+        p1.findElement(By.id("7C")).click();
+        Thread.sleep(800);
 
         // Player2 plays 8H and declares D as next suit
+        p2.findElement(By.id("8H")).click();
+        Thread.sleep(800);
+        p2.findElement(By.id("diamond")).click();
+        Thread.sleep(800);
 
         // Player3 plays JD
+        p3.findElement(By.id("JD")).click();
+        Thread.sleep(800);
 
         // Player4 plays 7D
+        p4.findElement(By.id("7D")).click();
+        Thread.sleep(800);
 
         // Player1 plays 9D
+        p1.findElement(By.id("9D")).click();
+        Thread.sleep(800);
+
+        // Player1's hand is {5D, 6D, 10C} and scores 21
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("5D")).isDisplayed());
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("6D")).isDisplayed());
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("TC")).isDisplayed());
+        // Player3's hand is {3H} and scores 3
+        assertTrue(p3.findElement(By.id("hand")).findElement(By.id("3H")).isDisplayed());
+        // Player4's hand is {JH, QH, KH, 5C, 4C} and scores 39
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("JH")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("QH")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("KH")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("5C")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("4C")).isDisplayed());
+
 
         // Player2 plays 10D and empties hand
+        p2.findElement(By.id("TD")).click();
+        Thread.sleep(800);
 
         // Player1's hand is {5D, 6D, 10C} and scores 21
 
+        assertEquals("Player 1: 21", p1.findElement(By.id("p1")).getText());
+
         // Player2's hand is empty and scores 0
+        assertEquals(0, p2.findElement(By.id("hand")).findElements(By.className("card")).size());
+        assertEquals("Player 2: 0", p2.findElement(By.id("p2")).getText());
 
         // Player3's hand is {3H} and scores 3
+        assertEquals("Player 3: 3", p3.findElement(By.id("p3")).getText());
 
         // Player4's hand is {JH, QH, KH, 5C, 4C} and scores 39
+        assertEquals("Player 4: 39", p4.findElement(By.id("p4")).getText());
 
         // next round starts: player 2 starts as it was the second player to join the game
 
         // top card is 10D
+        gd.setTopCard(new Card("D", "T"));
 
         // player1's hand is {7D, 4S, 7C, 4H, 5D}
 
@@ -876,65 +950,169 @@ public class AcceptanceTest {
         // player3's hand is {3D, 9S, 3C, 9H, 5H}
 
         // player4's hand is {4D, 7S, 4C, 5S, 8D}
+        setPlayerCards(new String[]{"D7 S4 C7 H4 D5", "D9 S3 C9 H3 CJ", "D3 S9 C3 H9 H5", "D4 S7 C4 S5 D8"});
 
         // Player2 plays 9D
+        Thread.sleep(800);
+        p2.findElement(By.id("startBtn")).click();
+        Thread.sleep(1000);
+        p2.findElement(By.id("9D")).click();
+        Thread.sleep(1000);
 
         // Player3 plays 3D
+        p3.findElement(By.id("3D")).click();
+        Thread.sleep(800);
 
         // Player4 plays 4D
+        p4.findElement(By.id("4D")).click();
+        Thread.sleep(800);
 
         // Player1 plays 4S
+        p1.findElement(By.id("4S")).click();
+        Thread.sleep(800);
 
         // Player2 plays 3S
+        p2.findElement(By.id("3S")).click();
+        Thread.sleep(800);
 
         // Player3 plays 9S
+        p3.findElement(By.id("9S")).click();
+        Thread.sleep(800);
 
         // Player4 plays 7S
+        p4.findElement(By.id("7S")).click();
+        Thread.sleep(800);
 
         // Player1 plays 7C
+        p1.findElement(By.id("7C")).click();
+        Thread.sleep(800);
 
         // Player2 plays 9C
+        p2.findElement(By.id("9C")).click();
+        Thread.sleep(800);
 
         // Player3 plays 3C
+        p3.findElement(By.id("3C")).click();
+        Thread.sleep(800);
 
         // Player4 plays 4C
+        p4.findElement(By.id("4C")).click();
+        Thread.sleep(800);
 
         // Player1 plays 4H
+        p1.findElement(By.id("4H")).click();
+        Thread.sleep(800);
 
         // Player2 plays 3H
+        p2.findElement(By.id("3H")).click();
+        Thread.sleep(800);
 
         // Player3 plays 9H
+        p3.findElement(By.id("9H")).click();
+        Thread.sleep(800);
 
         // Player4 chooses to draw and draws KS, which can't be played    (ok player4 is dumb but we just want to end the game)
+        setPileCards(new String[]{"SK"});
+        Thread.sleep(200);
+        p4.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player4 cannot play drawn card and must draw: draws QS
+        setPileCards(new String[]{"SQ"});
+        Thread.sleep(200);
+        p4.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player4 still can't play last drawn card and must draw again: draws KH
+        setPileCards(new String[]{"HK"});
+        Thread.sleep(200);
+        p4.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player4 plays KH
+        p4.findElement(By.id("KH")).click();
+        Thread.sleep(800);
 
         // Player1 can't play and draws 6D
+        setPileCards(new String[]{"D6"});
+        Thread.sleep(200);
+        p1.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player1 can't play and draws QD
+        setPileCards(new String[]{"DQ"});
+        Thread.sleep(200);
+        p1.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player1 can't play and draws JD; still can't play; turn ends
+        setPileCards(new String[]{"DJ"});
+        Thread.sleep(200);
+        p1.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player2 can't play and draws 6S
+        setPileCards(new String[]{"S6"});
+        Thread.sleep(200);
+        p2.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player2 can't play and draws JS
+        setPileCards(new String[]{"SJ"});
+        Thread.sleep(200);
+        p2.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
         // Player2 can't play and draws 10S; still can't play; turn ends
+        setPileCards(new String[]{"ST"});
+        Thread.sleep(200);
+        p2.findElement(By.id("draw")).click();
+        Thread.sleep(800);
 
-        // Player3 plays 5H and empties hand
 
         // Player1's hand is {5D, 6D, 7D, JD, QD} and scores 38 this round for a total of 59
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("5D")).isDisplayed());
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("6D")).isDisplayed());
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("7D")).isDisplayed());
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("JD")).isDisplayed());
+        assertTrue(p1.findElement(By.id("hand")).findElement(By.id("QD")).isDisplayed());
+        // Player2's hand is {JC, 6S, 10S, JS} and scores 36 this round for a total of 36
+        assertTrue(p2.findElement(By.id("hand")).findElement(By.id("JC")).isDisplayed());
+        assertTrue(p2.findElement(By.id("hand")).findElement(By.id("6S")).isDisplayed());
+        assertTrue(p2.findElement(By.id("hand")).findElement(By.id("TS")).isDisplayed());
+        assertTrue(p2.findElement(By.id("hand")).findElement(By.id("JS")).isDisplayed());
+        // Player4's hand is {5S, 8D, KS, QS} and scores 75 this round for a total of 114, which ends the game since it is over 100
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("5S")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("8D")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("KS")).isDisplayed());
+        assertTrue(p4.findElement(By.id("hand")).findElement(By.id("QS")).isDisplayed());
+
+        // Player3 plays 5H and empties hand
+        p3.findElement(By.id("5H")).click();
+        Thread.sleep(800);
+        // Player1's hand is {5D, 6D, 7D, JD, QD} and scores 38 this round for a total of 59
+        assertEquals("Player 1: 59", p1.findElement(By.id("p1")).getText());
 
         // Player2's hand is {JC, 6S, 10S, JS} and scores 36 this round for a total of 36
+        assertEquals("Player 2: 36", p2.findElement(By.id("p2")).getText());
 
         // Player3's hand is empty and has a final score of 3
+        assertEquals(0, p3.findElement(By.id("hand")).findElements(By.className("card")).size());
+        assertEquals("Player 3: 3", p3.findElement(By.id("p3")).getText());
 
         // Player4's hand is {5S, 8D, KS, QS} and scores 75 this round for a total of 114, which ends the game since it is over 100
+        assertEquals("Player 4: 114", p4.findElement(By.id("p4")).getText());
 
         // Player3 wins the game
+        assertTrue(p1.findElement(By.id("winMSG")).isDisplayed());
+        assertTrue(p2.findElement(By.id("winMSG")).isDisplayed());
+        assertTrue(p3.findElement(By.id("winMSG")).isDisplayed());
+        assertTrue(p4.findElement(By.id("winMSG")).isDisplayed());
+
+        assertEquals("WINNER IS PLAYER 3", p1.findElement(By.id("winMSG")).getText());
+        assertEquals("WINNER IS PLAYER 3", p2.findElement(By.id("winMSG")).getText());
+        assertEquals("WINNER IS PLAYER 3", p3.findElement(By.id("winMSG")).getText());
+        assertEquals("WINNER IS PLAYER 3", p4.findElement(By.id("winMSG")).getText());
+
     }
 }
